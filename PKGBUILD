@@ -1,11 +1,11 @@
 # Maintainer: Torge Matthies <openglfreak at googlemail dot com>
 
 pkgname=minecraft-server
-pkgver=0.1.0
+pkgver=1.0.0
 pkgrel=1
 pkgdesc="Minecraft server"
-arch=('x86_64')
-license=('proprietary')
+arch=('any')
+license=('Boost')
 depends=('java-runtime' 'python' 'python-systemd')
 optdepends=('socat: minecraft-server-console command')
 source=('broadcast-socket.py'
@@ -25,23 +25,23 @@ source=('broadcast-socket.py'
         'player-count.py'
         'server-launch.sh'
         'socket-generator.sh')
-sha256sums=('d3ba80c7706d83d25996a0072e426cbfdefe73d3557135c56c38c3124b4bb4db'
-            'f1a71ecd7e02dc657ded2948bd73e5067ff93223b24c7733abd00cc3c5c57a9f'
-            'edbe8f50077773cd19c45201f61fe89a793496743dd10b81f7107939fa2badeb'
-            '0eda1f642b5c3831ac387c5b51586f35ea33719e989f8db0b24f907eab2c5a80'
-            '00a2352533b46705d6c382107285015b5fa12078113102fad2a4fe4bc46cacd0'
-            '365eb6fd3dec27c3d303c22750869b615a98bfc7b77fa45f2ca656b769cf734f'
-            'c6d5987857c9dbf448b1fb3c2a528ff1ed79f682f21f77de3121bc68b6daa014'
-            '7759c1d94e499638dcd48d55da82c4741d4f9a2f3bf5933eab3f40301ba735d7'
-            '8854bc0fc23ed061502fa9d686120d9711e632785e2ba4c5fe7192e78efd290e'
-            '3d90a2aaf181fbd1eb6ee4ae23fadd1a090d370970785dce0447a0a4e605c301'
-            'b81bdacdb5e97c3eaf2e5ad95e536200041d54d98029b6f01a6b2b1bc40df863'
-            'bb15eaa9678a46a940442c92f8f31019512a7a3ebf003e1c15e5bdbd00706d56'
-            '221a9753c683f057ba928dc4e63708f602982b88dc77342313d7aba830862c57'
-            '64ce44edb0b7889751089d1daad916d5cad08c7d5a6751ac6bb6f1474c3e4d8d'
-            '37e00de087ac89ae79b1c64974ff99dea35fde6f1b14907e31a4a9eee75e2097'
-            'd17be777065c7cff9906b00c27e3f734c810f585cbf56206c65db6a116450964'
-            'a8a9ddf2a95b814308a2eef32c75cdfae3af895c6e065c126b8625e5edd98cce')
+sha256sums=('6f3bd7223e467bf36bddf6abbedac1154310ebc4874cc790c1028f3a9f5b5323'
+            '1e4fb847157a04b603b355d86e598c09c21d810a311eca91a95a4ce3e5a3ea9f'
+            '5310f2fe6378e5e85bf8b577dc4bb54b1db74518c7254fb7d2fb8ccd05ca0ef8'
+            '25e955adbc09475626de0ab6cc2a95061fcad355b5e0585b7bec4b11ad05da37'
+            'd8549cd42e612e1baa95e40969ee509dd09d16cb08606c53eb31bcf9df1f9a52'
+            '4aad7a71b53fd68ab1e9c32eb1452529f18d1f0e069a99ad1b136b3935cfa903'
+            'ceef47ee2c59cd478a1d25cd55ba80edcb035c78b92c0671dd6f0ba305641e62'
+            'a9cd444904d4297d010e3683968fea8409e3232d65c972ee2cbe73f3650fadb1'
+            'b693253af9ae012d36df41c9eee7831d49a819a06840793428c2197ee925864a'
+            '4b53a2608eb7b93105d4a43bb9766ee37cdd5d9286b420becb6e9e8dd2243d99'
+            'ac735089acb0a282ab5f356b4749fe83f1878c65e87a5cbf943e37208b47c1e5'
+            'bf74b35ccd8f2ee4e9e93ef583e882fdb150956faf8f54d4e5b64587a440fb48'
+            'e12f5c273866bb0b73e8e6ec09cedeb4b74f38b40106b0b169e47d9eaae4fb55'
+            '82b1b6e34b3c46aea7614214cac5df7d360baa36b3ad786be37eb76a61a9a309'
+            '1163ba317b5c0f04301f153b986ebda94f41ec19fee23fb081305f7f0b9c3828'
+            '56a746a6a6abd03b0338f5dade193788db7255f7f45cbf2ba206e7c616f9992b'
+            '1bc042d5548cc349ba5813c1efe7af87d6d31ff5588027eda75aef39af60cc88')
 
 package() {
     install -Dm755 "${srcdir}/broadcast-socket.py" "${pkgdir}/usr/lib/minecraft-server/broadcast-socket.py"

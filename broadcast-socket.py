@@ -1,5 +1,11 @@
 #!/usr/bin/env -S python3 -OO
-# pylint: disable=missing-module-docstring,missing-class-docstring,missing-function-docstring,raise-missing-from
+
+#          Copyright Torge Matthies 2021.
+# Distributed under the Boost Software License, Version 1.0.
+#    (See accompanying file LICENSE_1_0.txt or copy at
+#          https://www.boost.org/LICENSE_1_0.txt)
+
+# pylint: disable=invalid-name,missing-module-docstring,missing-class-docstring,missing-function-docstring,raise-missing-from
 import os
 import select
 import selectors

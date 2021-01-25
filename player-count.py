@@ -1,5 +1,11 @@
 #!/usr/bin/env -S python3 -OO
-# pylint: disable=missing-module-docstring,missing-function-docstring
+
+#          Copyright Torge Matthies 2021.
+# Distributed under the Boost Software License, Version 1.0.
+#    (See accompanying file LICENSE_1_0.txt or copy at
+#          https://www.boost.org/LICENSE_1_0.txt)
+
+# pylint: disable=invalid-name,missing-module-docstring,missing-function-docstring
 import socket
 import re
 import sys
@@ -48,6 +54,7 @@ def main(argv):
         if player_count is None:
             return 1
         print(player_count)
+    return 0
 
 
 if __name__ == '__main__':
