@@ -6,7 +6,7 @@ JoinsNamespaceOf=minecraft-server@%i.service
 RefuseManualStart=yes
 
 [Socket]
-ListenFIFO=/run/minecraft-server-stdin-%i.fifo
+ListenFIFO=/run/minecraft-server/%i/stdin.fifo
 FileDescriptorName=stdin
 Service=minecraft-server@%i.service
 SocketUser=minecraft-server

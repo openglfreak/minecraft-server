@@ -2,13 +2,12 @@
 Description=Minecraft server console socket (%i)
 
 [Socket]
-ListenStream=/run/minecraft-server-console-%i.socket
+ListenStream=/run/minecraft-server/%i/console.socket
 FileDescriptorName=console
 Service=minecraft-server-console@%i.service
 SocketUser=minecraft-server
 SocketGroup=minecraft-server
 SocketMode=0660
-RemoveOnStop=yes
 
 [Install]
 WantedBy=sockets.target

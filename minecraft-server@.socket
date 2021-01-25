@@ -3,7 +3,6 @@ Description=Minecraft server game data socket (%i)
 
 [Socket]
 ListenStream=25565
-Accept=no
 
 [Install]
 WantedBy=sockets.target

@@ -17,24 +17,37 @@ WorkingDirectory=/var/lib/minecraft-server/%i
 ExecStart=/usr/lib/minecraft-server/server-launch.sh
 # https://github.com/systemd/systemd/issues/7069
 #ExecCondition=/bin/sh -c '! grep -F eula=false eula.txt'
-#ExecStop=/bin/sh -c 'echo stop >/run/minecraft-server-stdin-%i.fifo'
-#ExecReload=/bin/sh -c 'echo reload >/run/minecraft-server-stdin-%i.fifo'
+#ExecStop=/bin/sh -c 'echo stop >"/run/minecraft-server/%i/stdin.fifo"'
+#ExecReload=/bin/sh -c 'echo reload >"/run/minecraft-server/%i/stdin.fifo"'
 StandardInput=fd:stdin
 StandardOutput=fd:stdout
 StandardError=inherit
 Sockets=minecraft-server-stdin@%i.socket minecraft-server-stdout@%i.socket
+RestrictAddressFamilies=AF_INET AF_INET6
 
 # Hardening options
 CapabilityBoundingSet=
 AmbientCapabilities=
 NoNewPrivileges=yes
 ProtectHome=yes
-ProtectSystem=full
+ProtectProc=invisible
+ProtectSystem=strict
+ProtectKernelLogs=yes
 ProtectKernelTunables=yes
 ProtectKernelModules=yes
 ProtectControlGroups=yes
+ProtectHostname=yes
+ProtectClock=yes
 PrivateTmp=yes
+#PrivateNetwork=yes
+PrivateDevices=yes
+PrivateUsers=yes
+RestrictNamespaces=yes
+RestrictSUIDSGID=yes
 LockPersonality=yes
+SystemCallFilter=@system-service
+UMask=0117
+ProcSubset=pid
 
 [Install]
 WantedBy=multi-user.target

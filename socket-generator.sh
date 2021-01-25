@@ -26,9 +26,42 @@ process_server_dir() {
 ListenStream=
 ListenStream=${_ip_port}
 EOF
+    ln -s "${out_dir}/minecraft-server-properties@.path" "${out_dir}/paths.target.wants/minecraft-server-properties@$1.path"
 }
 
+mkdir -p "${out_dir}/paths.target.wants"
+cat >"${out_dir}/minecraft-server-properties@.path" <<EOF
+[Unit]
+Description=Minecraft server socket update path unit (%i)
+
+[Path]
+PathModified=/var/lib/minecraft-server/%i/server.properties
+EOF
+cat >"${out_dir}/minecraft-server-properties@.service" <<EOF
+[Unit]
+Description=Minecraft server socket update service (%i)
+RefuseManualStart=yes
+
+[Service]
+ExecStart=/bin/sh -c '/usr/bin/systemctl daemon-reload; /usr/bin/systemctl is-active "minecraft-server@%i.socket" && /usr/bin/systemctl restart "minecraft-server@%i.socket"'
+EOF
+cat >"${out_dir}/minecraft-server-properties.path" <<EOF
+[Unit]
+Description=Minecraft server socket update path unit
+
+[Path]
+PathModified=/var/lib/minecraft-server
+EOF
+ln -s "${out_dir}/minecraft-server-properties.path" "${out_dir}/paths.target.wants/minecraft-server-properties.path"
+cat >"${out_dir}/minecraft-server-properties.service" <<EOF
+[Unit]
+Description=Minecraft server socket update service
+RefuseManualStart=yes
+
+[Service]
+ExecStart=/usr/bin/systemctl daemon-reload
+EOF
 for server_dir in /var/lib/minecraft-server/*; do
-    [ -d "${server_dir}" ] || continue
+    [ -f "${server_dir}/server.properties" ] || continue
     process_server_dir "${server_dir##*/}"
 done

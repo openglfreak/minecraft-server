@@ -9,18 +9,30 @@ RefuseManualStart=yes
 User=minecraft-server
 Group=minecraft-server
 RemainAfterExit=yes
-ExecStop=/bin/sh -c 'echo stop >/run/minecraft-server-stdin-%i.fifo && while x="$(LC_ALL=C systemctl is-active minecraft-server@%i.service)"; { [ "$x" = active ] || [ "$x" = deactivating ]; }; do sleep 1; done'
+ExecStop=/bin/sh -c 'echo stop >"/run/minecraft-server/%i/stdin.fifo" && while systemctl is-active --quiet "minecraft-server@%i.service"; do sleep 1; done'
 Sockets=minecraft-server-stdin@%i.socket
-TimeoutStopSec=1 minute
+TimeoutStopSec=1 minute 30 seconds
 
 # Hardening options
 CapabilityBoundingSet=
 AmbientCapabilities=
 NoNewPrivileges=yes
 ProtectHome=yes
-ProtectSystem=full
+ProtectProc=invisible
+ProtectSystem=strict
+ProtectKernelLogs=yes
 ProtectKernelTunables=yes
 ProtectKernelModules=yes
 ProtectControlGroups=yes
+ProtectHostname=yes
+ProtectClock=yes
 PrivateTmp=yes
+PrivateNetwork=yes
+PrivateDevices=yes
+PrivateUsers=yes
+RestrictNamespaces=yes
+RestrictSUIDSGID=yes
 LockPersonality=yes
+SystemCallFilter=@system-service
+UMask=0117
+ProcSubset=pid
