@@ -1,0 +1,40 @@
+[Unit]
+Description=Minecraft server (%i)
+BindsTo=minecraft-server-stdin@%i.socket minecraft-server-stdout@%i.socket minecraft-server-console@%i.service
+Conflicts=minecraft-server@%i.socket
+After=minecraft-server-stdin@%i.socket minecraft-server-stdout@%i.socket minecraft-server-console@%i.service minecraft-server@%i.socket
+# https://github.com/systemd/systemd/issues/7069
+Requires=minecraft-server-workaround-7069-before@%i.service
+Wants=minecraft-server-workaround-7069-after@%i.service
+
+[Service]
+Type=simple
+User=minecraft-server
+Group=minecraft-server
+StateDirectory=minecraft-server/%i
+StateDirectoryMode=770
+WorkingDirectory=/var/lib/minecraft-server/%i
+ExecStart=/usr/lib/minecraft-server/server-launch.sh
+# https://github.com/systemd/systemd/issues/7069
+#ExecCondition=/bin/sh -c '! grep -F eula=false eula.txt'
+#ExecStop=/bin/sh -c 'echo stop >/run/minecraft-server-stdin-%i.fifo'
+#ExecReload=/bin/sh -c 'echo reload >/run/minecraft-server-stdin-%i.fifo'
+StandardInput=fd:stdin
+StandardOutput=fd:stdout
+StandardError=inherit
+Sockets=minecraft-server-stdin@%i.socket minecraft-server-stdout@%i.socket
+
+# Hardening options
+CapabilityBoundingSet=
+AmbientCapabilities=
+NoNewPrivileges=yes
+ProtectHome=yes
+ProtectSystem=full
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+PrivateTmp=yes
+LockPersonality=yes
+
+[Install]
+WantedBy=multi-user.target

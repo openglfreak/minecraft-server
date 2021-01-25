@@ -1,0 +1,26 @@
+[Unit]
+Description=Minecraft server auxillary unit to workaround bug systemd#7069 (After) (%i)
+BindsTo=minecraft-server@%i.service
+After=minecraft-server@%i.service
+JoinsNamespaceOf=minecraft-server@%i.service
+RefuseManualStart=yes
+
+[Service]
+User=minecraft-server
+Group=minecraft-server
+RemainAfterExit=yes
+ExecStop=/bin/sh -c 'echo stop >/run/minecraft-server-stdin-%i.fifo && while x="$(LC_ALL=C systemctl is-active minecraft-server@%i.service)"; { [ "$x" = active ] || [ "$x" = deactivating ]; }; do sleep 1; done'
+Sockets=minecraft-server-stdin@%i.socket
+TimeoutStopSec=1 minute
+
+# Hardening options
+CapabilityBoundingSet=
+AmbientCapabilities=
+NoNewPrivileges=yes
+ProtectHome=yes
+ProtectSystem=full
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+PrivateTmp=yes
+LockPersonality=yes

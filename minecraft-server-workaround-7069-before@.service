@@ -1,16 +1,16 @@
 [Unit]
-Description=Minecraft server auxillary unit to workaround bug systemd#7069 (Before)
-ConditionPathExists=/var/lib/minecraft-server/eula.txt
-BindsTo=minecraft-server.service
-Before=minecraft-server.service
-JoinsNamespaceOf=minecraft-server.service
+Description=Minecraft server auxillary unit to workaround bug systemd#7069 (Before) (%i)
+BindsTo=minecraft-server@%i.service
+Before=minecraft-server@%i.service
+JoinsNamespaceOf=minecraft-server@%i.service
 RefuseManualStart=yes
 
 [Service]
 Type=oneshot
 User=minecraft-server
 Group=minecraft-server
-ExecStart=/bin/sh -c '! grep -F eula=false /var/lib/minecraft-server/eula.txt'
+WorkingDirectory=/var/lib/minecraft-server/%i
+ExecStart=/bin/sh -c '! grep -F eula=false eula.txt'
 RemainAfterExit=yes
 
 # Hardening options

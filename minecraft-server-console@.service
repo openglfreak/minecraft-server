@@ -1,9 +1,9 @@
 [Unit]
-Description=Minecraft server console proxy
-BindsTo=minecraft-server-stdin.socket minecraft-server-stdout.socket minecraft-server-console.socket
-Before=minecraft-server.service
-After=minecraft-server-stdin.socket minecraft-server-stdout.socket minecraft-server-console.socket
-JoinsNamespaceOf=minecraft-server.service
+Description=Minecraft server console proxy (%i)
+BindsTo=minecraft-server-stdin@%i.socket minecraft-server-stdout@%i.socket minecraft-server-console@%i.socket
+Before=minecraft-server@%i.service
+After=minecraft-server-stdin@%i.socket minecraft-server-stdout@%i.socket minecraft-server-console@%i.socket
+JoinsNamespaceOf=minecraft-server@%i.service
 
 [Service]
 Type=simple
@@ -13,7 +13,7 @@ ExecStart=/usr/lib/minecraft-server/broadcast-socket.py
 StandardInput=fd:stdout
 StandardOutput=fd:stdin
 StandardError=journal
-Sockets=minecraft-server-stdin.socket minecraft-server-stdout.socket minecraft-server-console.socket
+Sockets=minecraft-server-stdin@%i.socket minecraft-server-stdout@%i.socket minecraft-server-console@%i.socket
 
 # Hardening options
 CapabilityBoundingSet=

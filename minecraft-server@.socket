@@ -1,5 +1,5 @@
 [Unit]
-Description=Minecraft server game data socket
+Description=Minecraft server game data socket (%i)
 
 [Socket]
 ListenStream=25565

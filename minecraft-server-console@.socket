@@ -1,10 +1,10 @@
 [Unit]
-Description=Minecraft server console socket
+Description=Minecraft server console socket (%i)
 
 [Socket]
-ListenStream=/run/minecraft-server-console.socket
+ListenStream=/run/minecraft-server-console-%i.socket
 FileDescriptorName=console
-Service=minecraft-server-console.service
+Service=minecraft-server-console@%i.service
 SocketUser=minecraft-server
 SocketGroup=minecraft-server
 SocketMode=0660

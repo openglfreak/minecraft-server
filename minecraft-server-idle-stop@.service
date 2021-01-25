@@ -1,0 +1,26 @@
+[Unit]
+Description=Minecraft server stop-when-idle service (%i)
+Requisite=minecraft-server@%i.service minecraft-server-console@%i.socket
+PartOf=minecraft-server@%i.service minecraft-server-console@%i.socket
+After=minecraft-server@%i.service minecraft-server-console@%i.socket
+JoinsNamespaceOf=minecraft-server@%i.service
+RefuseManualStart=yes
+
+[Service]
+Type=simple
+DynamicUser=yes
+SupplementaryGroups=minecraft-server
+ExecStart=/usr/lib/minecraft-server/idle-stop.sh %i
+Sockets=minecraft-server-console@%i.socket
+
+# Hardening options
+CapabilityBoundingSet=
+AmbientCapabilities=
+NoNewPrivileges=true
+ProtectHome=true
+ProtectSystem=full
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+PrivateTmp=true
+LockPersonality=true

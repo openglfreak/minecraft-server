@@ -1,0 +1,15 @@
+[Unit]
+Description=Minecraft server stdout FIFO (%i)
+PartOf=minecraft-server@%i.service minecraft-server-console@%i.service
+Before=minecraft-server@%i.service minecraft-server-console@%i.service
+JoinsNamespaceOf=minecraft-server@%i.service
+RefuseManualStart=yes
+
+[Socket]
+ListenFIFO=/run/minecraft-server-stdout-%i.fifo
+FileDescriptorName=stdout
+Service=minecraft-server@%i.service
+SocketUser=minecraft-server
+SocketGroup=minecraft-server
+SocketMode=0600
+RemoveOnStop=yes

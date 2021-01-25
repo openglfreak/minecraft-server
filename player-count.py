@@ -39,9 +39,9 @@ def find_player_count(sock):
     return None
 
 
-def main(_):
+def main(argv):
     with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as sock:
-        sock.connect('/run/minecraft-server-console.socket')
+        sock.connect('/run/minecraft-server-console-%s.socket' % (argv[1],))
         sock.settimeout(3.0)
         sock.send(b'list\n')
         player_count = find_player_count(sock)
