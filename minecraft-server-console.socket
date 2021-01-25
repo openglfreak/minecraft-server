@@ -1,0 +1,14 @@
+[Unit]
+Description=Minecraft server console socket
+
+[Socket]
+ListenStream=/run/minecraft-server-console.socket
+FileDescriptorName=console
+Service=minecraft-server-console.service
+SocketUser=minecraft-server
+SocketGroup=minecraft-server
+SocketMode=0660
+RemoveOnStop=yes
+
+[Install]
+WantedBy=sockets.target

@@ -1,0 +1,9 @@
+[Unit]
+Description=Minecraft server game data socket
+
+[Socket]
+ListenStream=25565
+Accept=no
+
+[Install]
+WantedBy=sockets.target

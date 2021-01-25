@@ -1,0 +1,15 @@
+[Unit]
+Description=Minecraft server stdin FIFO
+PartOf=minecraft-server.service minecraft-server-console.service
+Before=minecraft-server.service minecraft-server-console.service
+JoinsNamespaceOf=minecraft-server.service
+RefuseManualStart=yes
+
+[Socket]
+ListenFIFO=/run/minecraft-server-stdin.fifo
+FileDescriptorName=stdin
+Service=minecraft-server.service
+SocketUser=minecraft-server
+SocketGroup=minecraft-server
+SocketMode=0600
+RemoveOnStop=yes

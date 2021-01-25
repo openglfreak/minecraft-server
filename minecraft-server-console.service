@@ -1,0 +1,31 @@
+[Unit]
+Description=Minecraft server console proxy
+BindsTo=minecraft-server-stdin.socket minecraft-server-stdout.socket minecraft-server-console.socket
+Before=minecraft-server.service
+After=minecraft-server-stdin.socket minecraft-server-stdout.socket minecraft-server-console.socket
+JoinsNamespaceOf=minecraft-server.service
+
+[Service]
+Type=simple
+DynamicUser=yes
+SupplementaryGroups=minecraft-server
+ExecStart=/usr/lib/minecraft-server/broadcast-socket.py
+StandardInput=fd:stdout
+StandardOutput=fd:stdin
+StandardError=journal
+Sockets=minecraft-server-stdin.socket minecraft-server-stdout.socket minecraft-server-console.socket
+
+# Hardening options
+CapabilityBoundingSet=
+AmbientCapabilities=
+NoNewPrivileges=true
+ProtectHome=true
+ProtectSystem=full
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+PrivateTmp=true
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target
