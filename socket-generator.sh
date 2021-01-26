@@ -38,6 +38,7 @@ mkdir -p "${out_dir}/paths.target.wants"
 cat >"${out_dir}/minecraft-server-properties@.path" <<EOF
 [Unit]
 Description=Minecraft server socket update path unit (%i)
+SourcePath=/var/lib/minecraft-server/%i/server.properties
 
 [Path]
 PathModified=/var/lib/minecraft-server/%i/server.properties
@@ -46,6 +47,7 @@ cat >"${out_dir}/minecraft-server-properties@.service" <<EOF
 [Unit]
 Description=Minecraft server socket update service (%i)
 RefuseManualStart=yes
+SourcePath=/var/lib/minecraft-server/%i/server.properties
 
 [Service]
 ExecStart=/bin/sh -c '/usr/bin/systemctl daemon-reload; /usr/bin/systemctl is-active "minecraft-server@%i.socket" && /usr/bin/systemctl restart "minecraft-server@%i.socket"'

@@ -12,6 +12,9 @@ if [ "${player_count}" -eq 0 ]; then
     if [ "${idle_time}" -ge 3 ]; then
         systemctl stop "minecraft-server@$1.service"
         systemctl start "minecraft-server@$1.socket"
+        idle_time=0
     fi
+else
+    idle_time=0
 fi
 printf '%i\n' "${idle_time}" >"/run/minecraft-server/$1/idle-time.txt"

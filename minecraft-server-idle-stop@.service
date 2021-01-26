@@ -6,8 +6,6 @@
 
 [Unit]
 Description=Minecraft server stop-when-idle service (%i)
-Requisite=minecraft-server@%i.service minecraft-server-console@%i.socket
-PartOf=minecraft-server@%i.service minecraft-server-console@%i.socket
 After=minecraft-server@%i.service minecraft-server-console@%i.socket
 JoinsNamespaceOf=minecraft-server@%i.service
 RefuseManualStart=yes
@@ -16,6 +14,8 @@ RefuseManualStart=yes
 Type=simple
 User=root
 Group=minecraft-server
+ExecCondition=/usr/bin/systemctl is-active --quiet minecraft-server@%i.service
+ExecCondition=/usr/bin/systemctl is-active --quiet minecraft-server-console@%i.socket
 ExecStart=/usr/lib/minecraft-server/idle-stop.sh %i
 Sockets=minecraft-server-console@%i.socket
 ReadWritePaths=/run/minecraft-server/%i
