@@ -52,7 +52,7 @@ RestrictNamespaces=yes
 RestrictSUIDSGID=yes
 LockPersonality=yes
 SystemCallFilter=@system-service
-UMask=0117
+UMask=0007
 ProcSubset=pid
 
 [Install]
